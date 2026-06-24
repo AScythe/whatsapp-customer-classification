@@ -4,7 +4,7 @@ __pycache__/
 *.egg-info/
 
 # Data / PII (customer WhatsApp messages and archives)
-whatsapp_raw_messages/
+# whatsapp_raw_messages/
 *_chat_archives/
 *.db
 
