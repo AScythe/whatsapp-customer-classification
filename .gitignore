@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Data / PII (customer WhatsApp messages and archives)
+whatsapp_raw_messages/
+*_chat_archives/
+*.db
+
+# Auto-generated code indexes
+.cocoindex_code/
+
+# Graphify cache (keep graph.json / graph-*.json in repo)
+graphify-out/cache/
+graphify-out/manifest.json
+
+# Node dependencies
+.opencode/node_modules/
+
+# Environment files
+.env
+*.env.local
