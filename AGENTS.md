@@ -183,7 +183,8 @@ Stage 3: Verify — ast-grep (structural pattern confirmation) → Read (exact l
 | Operation | Command | Notes |
 |-----------|---------|-------|
 | Extract raw messages | `python data_extraction.py` | Scans `whatsapp_raw_messages/*.json`, prompts for phone selection |
-| Decode media files | `python extract_media_ptt.py` | Decodes base64 media from JSONL to local files |
+| Decode media files | `python decode_media_ptt.py` | Decodes base64 media from JSONL to local files |
+| Decode document files | `python decode_media_doc.py` | Decodes base64 documents (PDF, DOC, DOCX, XLS, XLSX) from JSONL to local files |
 | Play voice messages | `python play_ptt.py` | Interactive voice message player (requires FFmpeg) |
 | Transcribe voice messages | `python transcribe_ptt.py` | Darija transcription using whisper-medium-darija |
 | Build customer context | `python build_customer_context.py` | Merges messages + transcripts into `customer_context.txt` |

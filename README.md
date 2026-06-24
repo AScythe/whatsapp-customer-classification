@@ -27,7 +27,8 @@ pip install torch transformers yaml
 # Place your WhatsApp export in whatsapp_raw_messages/ as {phone}.json
 # Then run the full pipeline:
 python data_extraction.py    # Step 1: Extract
-python extract_media_ptt.py  # Step 2: Decode media
+python decode_media_ptt.py  # Step 2: Decode media
+python decode_media_doc.py  # Step 2b: Decode documents
 python transcribe_ptt.py     # Step 3: Transcribe voice notes
 python build_customer_context.py  # Step 4: Build LLM context
 python classify_customer.py  # Step 5: Classify lead
@@ -48,10 +49,18 @@ Scans `whatsapp_raw_messages/*.json`, lists available source files by phone numb
 ### Step 2: Decode media
 
 ```bash
-python extract_media_ptt.py
+python decode_media_ptt.py
 ```
 
 Select a customer folder. Decodes base64-encoded media (voice messages, images) from JSONL to files in `media/`. Updates `media_link` in JSONL from data URI to local path.
+
+### Step 2b: Decode documents
+
+```bash
+python decode_media_doc.py
+```
+
+Select a customer folder. Decodes base64-encoded documents (PDF, DOC, DOCX, XLS, XLSX) from JSONL to files in `media/` alongside other media. Only processes entries with `type="document"`. Updates `media_link` in JSONL from data URI to local path.
 
 ### Step 3: Transcribe voice messages
 

@@ -14,7 +14,7 @@ An automated 6-step pipeline that ingests raw WhatsApp exports, extracts convers
 
 1. **Place a WhatsApp export** as a JSON file in the `whatsapp_raw_messages/` folder
 2. **Run extraction** — the pipeline reads the export, separates messages into hourly JSONL files, and tracks what's been processed
-3. **Decode media** — embedded voice messages and images are decoded from base64 to local files
+3. **Decode media** — embedded voice messages, images, and documents are decoded from base64 to local files
 4. **Transcribe voice notes** — Darija audio is transcribed using a fine-tuned Whisper model, adding text transcripts to each voice message
 5. **Build customer context** — all messages and transcripts are merged into a single plain-text file, one line per message
 6. **Classify the lead** — a Qwen3.5 LLM reads the context and returns a tier: HOT_LEAD (ready to buy), EXISTING_CUSTOMER (post-purchase inquiry), or COLD_LEAD (browsing)
