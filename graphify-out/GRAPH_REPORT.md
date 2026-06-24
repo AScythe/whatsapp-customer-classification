@@ -1,13 +1,18 @@
 # Graph Report - whatsapp_customer_classification  (2026-06-24)
 
 ## Corpus Check
-- 51 files · ~82,588 words
+- 57 files · ~90,715 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1231 nodes · 1262 edges · 104 communities (70 shown, 34 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 1395 nodes · 1487 edges · 118 communities (82 shown, 36 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `5ef125fb`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - [[_COMMUNITY_Community 0|Community 0]]
@@ -112,23 +117,46 @@
 - [[_COMMUNITY_Community 99|Community 99]]
 - [[_COMMUNITY_Community 100|Community 100]]
 - [[_COMMUNITY_Community 101|Community 101]]
+- [[_COMMUNITY_Community 104|Community 104]]
+- [[_COMMUNITY_Community 105|Community 105]]
+- [[_COMMUNITY_Community 106|Community 106]]
+- [[_COMMUNITY_Community 107|Community 107]]
+- [[_COMMUNITY_Community 108|Community 108]]
+- [[_COMMUNITY_Community 109|Community 109]]
+- [[_COMMUNITY_Community 110|Community 110]]
+- [[_COMMUNITY_Community 111|Community 111]]
+- [[_COMMUNITY_Community 112|Community 112]]
+- [[_COMMUNITY_Community 113|Community 113]]
+- [[_COMMUNITY_Community 115|Community 115]]
+- [[_COMMUNITY_Community 116|Community 116]]
+- [[_COMMUNITY_Community 117|Community 117]]
+- [[_COMMUNITY_Community 118|Community 118]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `7. Session Lessons Learned` - 42 edges
-2. `6. Documentation` - 15 edges
-3. `Document Guidelines - IntroChat` - 14 edges
-4. `check()` - 13 edges
-5. `main()` - 13 edges
-6. `8. Automation & Process Design` - 13 edges
-7. `Customer Lead Classification — Plan` - 12 edges
-8. `Agent Development Environment Setup` - 12 edges
-9. `main()` - 11 edges
-10. `Workflow` - 10 edges
+2. `WhatsApp Customer Lead Pipeline` - 18 edges
+3. `6. Documentation` - 15 edges
+4. `Document Guidelines - IntroChat` - 14 edges
+5. `check()` - 13 edges
+6. `main()` - 13 edges
+7. `8. Automation & Process Design` - 13 edges
+8. `Customer Lead Classification — Plan` - 12 edges
+9. `Agent Development Environment Setup` - 12 edges
+10. `main()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- None detected - all connections are within the same source files.
+- `process_jsonl()` --calls--> `find_next_seq()`  [INFERRED]
+  decode_media_doc.py → media_utils.py
+- `process_jsonl()` --calls--> `parse_data_uri()`  [INFERRED]
+  decode_media_doc.py → media_utils.py
+- `process_jsonl()` --calls--> `get_type_prefix()`  [INFERRED]
+  decode_media_doc.py → media_utils.py
+- `process_jsonl()` --calls--> `find_next_seq()`  [INFERRED]
+  decode_media_ptt.py → media_utils.py
+- `process_jsonl()` --calls--> `parse_data_uri()`  [INFERRED]
+  decode_media_ptt.py → media_utils.py
 
-## Communities (104 total, 34 thin omitted)
+## Communities (118 total, 36 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -155,12 +183,12 @@ Cohesion: 0.07
 Nodes (27): Boundaries, code:powershell (New-Item -ItemType Directory -Path "docs/sessions" -Force), code:powershell ($mostRecent = $files | Sort-Object -Descending | Select-Obje), code:block11 (Restored context from {filename}: goal={goal}, phase={phase}), code:powershell (New-Item -ItemType Directory -Path "archive/sessions" -Force), code:powershell (# List all SESSION_*.md files in both directories), code:yaml (---), code:markdown (## User YYYY-MM-DD HH:MM) (+19 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.07
-Nodes (26): 1. Add `extract_phone()` function (after imports, before `main()`), 2. Add phone sanitization helper (optional, next to `extract_phone()`), 3. Replace line 15: `base_output_dir`, 4. Insert phone extraction at the start of `main()`, after loading JSON, 5. Update `tracking_dir` to derive from `base_output_dir`, Changes to `data_extraction.py`, code:block1 (input_file = "whatsapp_raw_messages/whatsapp_messages.json"), code:block2 (input_file = "whatsapp_raw_messages/whatsapp_messages.json") (+18 more)
+Cohesion: 0.05
+Nodes (38): Architecture, Architecture & Design Decisions, Batch Execution Order, Dimension: Alternatives, Dimension: Assumptions, Dimension: Code Discovery, Dimension: Consistency, Dimension: Dependencies (+30 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.07
-Nodes (27): 6.10 Verify Presence and Quality, Not Absence, 6.11 Single Canonical Location for Artifacts, 6.12 File Description Convention Across All Languages, 6.13 ARCHITECTURE.md Project Structure Tree Synced from Source, 6.14 Documentation Conciseness & Anti-Bloat, 6.1 One Purpose Per Document, 6.2 Key Differentiator Per Document, 6.3 Quality Gates Before Content (+19 more)
+Cohesion: 0.10
+Nodes (21): 6.10 Verify Presence and Quality, Not Absence, 6.13 ARCHITECTURE.md Project Structure Tree Synced from Source, 6.14 Documentation Conciseness & Anti-Bloat, 6.1 One Purpose Per Document, 6.2 Key Differentiator Per Document, 6.3 Quality Gates Before Content, 6.4 Routing Table Over Decision Tree, 6.5 Document Boundary Tensions (+13 more)
 
 ### Community 8 - "Community 8"
 Cohesion: 0.07
@@ -183,8 +211,8 @@ Cohesion: 0.08
 Nodes (24): Audience, code:markdown (# [Project Name] Agent Setup), Content Rules, Exit Declaration, Gate: User Confirmation, Hand-off, Invocation Modes, Next Step (+16 more)
 
 ### Community 13 - "Community 13"
-Cohesion: 0.08
-Nodes (23): code:json ({"date": "2026-06-21", "extracted_hours": ["09", "10", "11"]), code:json ({), code:block3 (main():), code:block4 (Source JSON has hours {09, 10, 11} for day 2026-06-21), code:block5 (Source JSON has hours {09, 10, 11} for day 2026-06-21), code:python (def main():), code:python (def load_extracted_timestamps(tracker_file):), Complete `main()` rewrite (+15 more)
+Cohesion: 0.15
+Nodes (13): classify_customer.py, data_extraction.py, decode_media_doc.py, decode_media_ptt.py, Functions, Functions, Functions, Functions (+5 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.08
@@ -199,8 +227,8 @@ Cohesion: 0.09
 Nodes (22): Boundaries (analysis + gate-driven phase), code:markdown (# PLAN_YYYY_MM_DD_XXX), code:markdown (#### Task Breakdown), code:markdown (## Readiness Gate Results), Exit Declaration (fail), Exit Declaration (pass), Hand-off, Next Step (fail) (+14 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.09
-Nodes (22): Algorithm, code:python (from transformers import pipeline), code:block2 (Walk chat_archives/**/*.jsonl (skip _tracking/ and extracted), code:python (import torch), code:json ({), code:json ({), code:block6 (══════════════════════════════════════════), code:block7 (Step 1: python data_extraction.py      → hourly JSONL) (+14 more)
+Cohesion: 0.22
+Nodes (9): code:bash (python data_extraction.py), code:bash (python tests/test_agent_guidelines.py), code:bash (python agent_utility/dedup_graph_nodes.py     # Merge duplic), Full Pipeline, Individual Steps, Maintenance Scripts, Prerequisites, Running Instructions (+1 more)
 
 ### Community 18 - "Community 18"
 Cohesion: 0.09
@@ -219,12 +247,12 @@ Cohesion: 0.09
 Nodes (22): Audience, code:markdown (# Specifications — [Project Name]), Content Rules, Exit Declaration, Gate: User Confirmation, Hand-off, Invocation Modes, Next Step (+14 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.09
-Nodes (21): `build_customer_context.py`, Changes per script, `classify_customer.py`, code:python (import argparse), code:python (input_file = "whatsapp_raw_messages/whatsapp_messages.json"), code:python (import argparse), code:python (import json, logging, os, ...), code:python (import argparse) (+13 more)
+Cohesion: 0.25
+Nodes (8): code:block79, code:block80, code:block81, code:block82, code:block83, code:block84, code:block85, Pin: fastapi==0.115.0 (never fastapi without version)
 
 ### Community 23 - "Community 23"
-Cohesion: 0.09
-Nodes (21): 1. Add model selection constants (after imports, before `BASE_DIR`), 2. Replace hardcoded `MODEL_NAME`, 3. Update `get_device()` to use float16 for 2B on CPU, 4. Update `load_model()` messages, 5. Add model info log at startup, Changes to classify_customer.py, code:python (# Options: "qwen35_2b", "qwen35_4b"), code:python (# Before:) (+13 more)
+Cohesion: 0.40
+Nodes (5): Adding a Pipeline Step, Adding New Media Types for Decoding, Changing the Classification Model, Editing the Classification Prompt, Modifying Instructions
 
 ### Community 24 - "Community 24"
 Cohesion: 0.09
@@ -239,8 +267,8 @@ Cohesion: 0.10
 Nodes (20): Aesthetic Direction, Aesthetics Guidelines, Boundaries, Color System, Conflict Resolution, Design Spec Output, Design Thinking, Design Token Mapping (+12 more)
 
 ### Community 27 - "Community 27"
-Cohesion: 0.10
-Nodes (20): code:bash (python data_extraction.py), code:bash (python extract_media_ptt.py), code:bash (python play_ptt.py), code:bash (python transcribe_ptt.py), code:bash (python build_customer_context.py), code:bash (python classify_customer.py), code:block7 ({phone}_chat_archives/), code:python (MODEL = "qwen35_2b"   # 2B params, ~5GB RAM, runs on CPU) (+12 more)
+Cohesion: 0.08
+Nodes (38): code:bash (# Install dependencies), code:python (MODEL = "qwen35_2b"   # 2B params, ~5GB RAM, runs on CPU), code:bash (python tests/test_agent_guidelines.py), code:bash (python data_extraction.py), code:bash (python decode_media_ptt.py), code:bash (python decode_media_doc.py), code:bash (python transcribe_ptt.py), code:bash (python play_ptt.py) (+30 more)
 
 ### Community 28 - "Community 28"
 Cohesion: 0.10
@@ -251,28 +279,28 @@ Cohesion: 0.10
 Nodes (19): Agentic Workflow Skills, Codebase Exploration, code:block1 (Stage 1: Scope — graphify query_graph (see Tier rules above)), Commands Reference, Discipline, Documentation Discipline, Documentation Structure, Failure Triage (+11 more)
 
 ### Community 30 - "Community 30"
-Cohesion: 0.11
-Nodes (18): Algorithm, code:block1 (داكورا تيريوهم ليا باش وديك الساعات غادي نولي نرجعوهم), code:block2 (1. Load tracker from chat_archives/_tracking/appended_timest), code:json ({), code:bash (python build_customer_context.py), code:block5 (Step 1: python data_extraction.py          → hourly JSONL), Crash Safety, Customer Context — Plan (+10 more)
+Cohesion: 0.50
+Nodes (4): 6.12 File Description Convention Across All Languages, code:typescript (// Timer.tsx), code:python (# matchmaking.py), code:css (/* style.css */)
 
 ### Community 31 - "Community 31"
 Cohesion: 0.11
 Nodes (17): Boundaries (read-only phase), Exit Declaration, Guidelines, Hand-off, Next Step, Output, Outputs & Triggers, Phase 0: Prerequisites (+9 more)
 
 ### Community 32 - "Community 32"
-Cohesion: 0.11
-Nodes (17): Algorithm: classify_customer.py, code:block1 (1. Load appended_timestamps.json from chat_archives/_trackin), code:yaml (system_prompt: |), code:python (device = 0 if torch.cuda.is_available() else -1), code:bash (python classify_customer.py), code:block5 (Step 1: python data_extraction.py          → hourly JSONL), Customer Lead Classification — Plan, Dependencies (+9 more)
+Cohesion: 0.67
+Nodes (3): build_customer_context.py, Functions, Functions
 
 ### Community 33 - "Community 33"
-Cohesion: 0.11
-Nodes (17): `build_customer_context.py`, `classify_customer.py`, Cleanup (manual, one-time), code:python (OUTPUT_FILE = os.path.join(BASE_DIR, "customer_context.txt")), code:python (def sanitize_ts(ts):), code:python (def main():), code:python (CONTEXT_FILE = os.path.join(BASE_DIR, "customer_context.txt"), code:python (def load_context(context_file):) (+9 more)
+Cohesion: 0.67
+Nodes (3): code:block2 (WhatsApp JSON Export (whatsapp_raw_messages/{phone}.json)), Data Flow, Key Data Files
 
 ### Community 34 - "Community 34"
-Cohesion: 0.12
-Nodes (16): Change 1: Skip when already up-to-date, Change 2: Save result to root folder, code:python (def already_classified(latest_ts):), code:python (if already_classified(latest_ts):), code:python (def save_result(latest_ts, tier, reason, context_line_count)), code:block4 (existing lines | new | notes), Edge cases, Files changed (+8 more)
+Cohesion: 0.67
+Nodes (3): Functions, Functions, play_ptt.py
 
 ### Community 35 - "Community 35"
-Cohesion: 0.12
-Nodes (17): 1. Skills & Commands (`.opencode/`), 2. Agent Guidelines (`AGENTS.md`), 3. Reference Documents (`refs/`), 4. Agent Utilities (`agent_utility/`), 5. Agent Guideline Tests, 6. Project Config Files, code:block19 (.opencode/skills/<name>/SKILL.md   — all skill definitions), code:block20 (refs/AGENT_SETUP.md) (+9 more)
+Cohesion: 0.23
+Nodes (12): 1. Skills & Commands (`.opencode/`), 2. Agent Guidelines (`AGENTS.md`), 3. Reference Documents (`refs/`), 4. Agent Utilities (`agent_utility/`), 5. Agent Guideline Tests, 6. Project Config Files, code:block20 (.opencode/skills/<name>/SKILL.md   — all skill definitions), code:block21 (refs/AGENT_SETUP.md) (+4 more)
 
 ### Community 36 - "Community 36"
 Cohesion: 0.12
@@ -283,24 +311,24 @@ Cohesion: 0.12
 Nodes (16): 1.1 Module Responsibility Pattern, 1.2 Separation of Concerns, 1.3 Frontend Modularization, 1.4 Module Communication, 1.5 When to Split a Module, 1.6 Documentation-Driven Module Design, 1.7 Surgical Edit Pattern, 1.8 One Logical Change Per Edit (+8 more)
 
 ### Community 38 - "Community 38"
-Cohesion: 0.14
-Nodes (13): code:python (def count_pending(base_dir):), code:block2 (main():), Design, Edge cases analyzed, Modified `main()` flow, New function: `count_pending()`, Plan: Pre-scan to Avoid Loading Whisper Model When Nothing to Transcribe, Problem (+5 more)
+Cohesion: 0.67
+Nodes (3): Functions, Functions, transcribe_ptt.py
 
 ### Community 39 - "Community 39"
 Cohesion: 0.14
 Nodes (13): 1. Install OpenCode CLI, 2. Configure OpenCode Global Permissions, 3. Install MCP Servers, 4. Add uv Tool Binaries to PATH, 5. Set Default Embedding Model for cocoindex-code, code:powershell (npm install -g opencode-ai), code:powershell (opencode --version), code:json ({) (+5 more)
 
 ### Community 40 - "Community 40"
-Cohesion: 0.14
-Nodes (14): `ccc mcp` fails on OpenCode startup, `ccc` or `graphify` command not found, `.cocoindex_code/settings.yml` doesn't exist, CocoIndex on Windows, code:powershell ([Environment]::SetEnvironmentVariable("Path", "$env:Path;$en), code:powershell (pip install 'graphifyy[mcp]'), code:json ("cocoindex-code": {), code:powershell (graphify update .) (+6 more)
+Cohesion: 0.18
+Nodes (15): `ccc mcp` fails on OpenCode startup, `ccc` or `graphify` command not found, `.cocoindex_code/settings.yml` doesn't exist, CocoIndex on Windows, code:powershell (# OpenCode), code:powershell ([Environment]::SetEnvironmentVariable("Path", "$env:Path;$en), code:powershell (pip install 'graphifyy[mcp]'), code:json ("cocoindex-code": {) (+7 more)
 
 ### Community 41 - "Community 41"
 Cohesion: 0.32
 Nodes (12): already_classified(), extract_json(), get_device(), load_context(), load_model(), load_prompt(), load_tracker_ts(), main() (+4 more)
 
 ### Community 42 - "Community 42"
-Cohesion: 0.17
-Nodes (12): Agentic Workflow Skills, code:json ({), code:gitignore (node_modules), Configuration Reference, Gitignore Configuration, Global Configuration Files, Global Tool Installations, Nested `.opencode/.gitignore` (+4 more)
+Cohesion: 0.09
+Nodes (26): 1. Clone Repository, 2. Install OpenCode Plugin Dependencies, 3. Create `opencode.json` (Project MCP & Plugin Config), 3. Initialize cocoindex-code Index, 4. Build the Knowledge Graph, 4. Initialize cocoindex-code Index, 5. Build the Knowledge Graph, 5. (No Action Needed) Graphify is Pre-Configured (+18 more)
 
 ### Community 43 - "Community 43"
 Cohesion: 0.17
@@ -311,20 +339,20 @@ Cohesion: 0.33
 Nodes (11): check_ffplay(), collect_entries_for_day(), find_matching_entry(), find_ogg_files(), input_int(), main(), parse_timestamp_from_filename(), play_audio() (+3 more)
 
 ### Community 45 - "Community 45"
-Cohesion: 0.18
-Nodes (11): code:powershell (# Install Python 3.10+ from https://python.org), code:powershell (uv tool install 'cocoindex-code[full]'), code:powershell (git clone <repository-url>), code:powershell (ccc init), First-Time Flow From Scratch, Step 1: Install System Prerequisites, Step 2: Set Up MCP Servers, Step 3: Install OpenCode Global Config (+3 more)
+Cohesion: 0.21
+Nodes (12): code:gitignore (node_modules), code:powershell (# Install Python 3.10+ from https://python.org), code:powershell (uv tool install 'cocoindex-code[full]'), code:powershell (git clone <repository-url>), code:powershell (ccc init), First-Time Flow From Scratch, Step 1: Install System Prerequisites, Step 2: Set Up MCP Servers (+4 more)
 
 ### Community 46 - "Community 46"
 Cohesion: 0.18
 Nodes (11): 7.21 Skill Audit After Content Restructure, 7.22 Exhaustive Section Mapping, 7.23 Stale Pattern Audit After Migration, 7.27 Surgical Edits Over File Rewrites, 7.28 Three-Layer Verification After Bulk Edits, 7.3 API Contract First, 7.4 Immediate Verification, 7.5 Investigation Priority Order (+3 more)
 
 ### Community 47 - "Community 47"
-Cohesion: 0.20
-Nodes (10): 1. Clone Repository, 2. Install OpenCode Plugin Dependencies, 3. Initialize cocoindex-code Index, 4. Build the Knowledge Graph, 5. (No Action Needed) Graphify is Pre-Configured, code:powershell (cd .opencode), code:powershell (ccc init), code:powershell (graphify update .) (+2 more)
+Cohesion: 0.18
+Nodes (11): Architecture — WhatsApp Customer Lead Pipeline, code:block1 (whatsapp_customer_classification/), code:block3 (data_extraction.py      → json, logging, os, sys, datetime, ), Functions, Functions, Import Structure, Key Design Decisions, Project Structure (+3 more)
 
 ### Community 48 - "Community 48"
-Cohesion: 0.22
-Nodes (8): Agent Development Environment Setup, code:powershell (# OpenCode), Custom Commands, Prerequisites, `/scaffold`, Table of Contents, Verification, What This Covers
+Cohesion: 0.17
+Nodes (12): Agent Development Environment Setup, code:block25 ([ ] .opencode/skills/ — all source skill folders present), code:powershell (uv run python tests/test_agent_guidelines.py), Custom Commands, Post-Copy Setup, Post-Copy Verification Gate, Prerequisites, Replicating to Another Project (+4 more)
 
 ### Community 49 - "Community 49"
 Cohesion: 0.22
@@ -343,8 +371,8 @@ Cohesion: 0.25
 Nodes (7): ✅ Batch-file boundary — clean CUDA context, code:block86 (The batch file (`start_vllm.bat`) launches a fresh Python pr), code:block87, code:block88, code:block89, code:block90, ❌ Direct subprocess — inherits parent's CUDA context, reduced GPU budget
 
 ### Community 53 - "Community 53"
-Cohesion: 0.25
-Nodes (8): code:block79, code:block80, code:block81, code:block82, code:block83, code:block84, code:block85, Pin: fastapi==0.115.0 (never fastapi without version)
+Cohesion: 0.08
+Nodes (26): 1. Add `extract_phone()` function (after imports, before `main()`), 2. Add phone sanitization helper (optional, next to `extract_phone()`), 3. Replace line 15: `base_output_dir`, 4. Insert phone extraction at the start of `main()`, after loading JSON, 5. Update `tracking_dir` to derive from `base_output_dir`, Changes to `data_extraction.py`, code:block1 (input_file = "whatsapp_raw_messages/whatsapp_messages.json"), code:block2 (input_file = "whatsapp_raw_messages/whatsapp_messages.json") (+18 more)
 
 ### Community 54 - "Community 54"
 Cohesion: 0.43
@@ -378,10 +406,6 @@ Nodes (7): 5. AGENTS.md, Audience, Content Boundaries, Key Differentiator, Scope
 Cohesion: 0.48
 Nodes (6): count_pending(), get_device(), load_pipeline(), main(), process_jsonl(), Count PTT entries needing transcription, without loading the model.
 
-### Community 62 - "Community 62"
-Cohesion: 0.60
-Nodes (5): find_next_seq(), get_type_prefix(), main(), parse_data_uri(), process_jsonl()
-
 ### Community 63 - "Community 63"
 Cohesion: 0.33
 Nodes (5): 4. DEMO_GUIDE.md (Archived), Anti-Duplication Rules, Checklist Before Adding Content, Document Guidelines - IntroChat, Quick Reference Table
@@ -395,29 +419,81 @@ Cohesion: 0.40
 Nodes (5): 9. Workflow-to-Document Dependency, code:block2 (review-implementation (1st pass)), Core Pipeline, Doc Sync Steps (Post-Implementation), Reading Pattern
 
 ### Community 66 - "Community 66"
-Cohesion: 0.40
-Nodes (5): 2.1 Server Binding for Browser Access, 2.2 Portable Config Paths, 2. Configuration, code:python (# ❌ Bad), code:python (# ✅ Local dev — browser-ready)
+Cohesion: 0.20
+Nodes (10): 2.1 Server Binding for Browser Access, 2.2 Portable Config Paths, 2. Configuration, 3. Error Handling, 4. State Management, code:python (if not input: return {'error': 'No data'}, 400), code:python (if user_id not in active_users:), code:python (# ❌ Bad) (+2 more)
 
 ### Community 67 - "Community 67"
-Cohesion: 0.40
-Nodes (5): 3. Error Handling, 4. State Management, code:python (if not input: return {'error': 'No data'}, 400), code:python (if user_id not in active_users:), Universal Project Best Practices
+Cohesion: 0.09
+Nodes (23): code:json ({"date": "2026-06-21", "extracted_hours": ["09", "10", "11"]), code:json ({), code:block3 (main():), code:block4 (Source JSON has hours {09, 10, 11} for day 2026-06-21), code:block5 (Source JSON has hours {09, 10, 11} for day 2026-06-21), code:python (def main():), code:python (def load_extracted_timestamps(tracker_file):), Complete `main()` rewrite (+15 more)
+
+### Community 104 - "Community 104"
+Cohesion: 0.09
+Nodes (22): Algorithm, code:python (from transformers import pipeline), code:block2 (Walk chat_archives/**/*.jsonl (skip _tracking/ and extracted), code:python (import torch), code:json ({), code:json ({), code:block6 (══════════════════════════════════════════), code:block7 (Step 1: python data_extraction.py      → hourly JSONL) (+14 more)
+
+### Community 105 - "Community 105"
+Cohesion: 0.10
+Nodes (21): `build_customer_context.py`, Changes per script, `classify_customer.py`, code:python (import argparse), code:python (input_file = "whatsapp_raw_messages/whatsapp_messages.json"), code:python (import argparse), code:python (import json, logging, os, ...), code:python (import argparse) (+13 more)
+
+### Community 106 - "Community 106"
+Cohesion: 0.10
+Nodes (21): 1. Add model selection constants (after imports, before `BASE_DIR`), 2. Replace hardcoded `MODEL_NAME`, 3. Update `get_device()` to use float16 for 2B on CPU, 4. Update `load_model()` messages, 5. Add model info log at startup, Changes to classify_customer.py, code:python (# Options: "qwen35_2b", "qwen35_4b"), code:python (# Before:) (+13 more)
+
+### Community 107 - "Community 107"
+Cohesion: 0.11
+Nodes (18): Algorithm, code:block1 (داكورا تيريوهم ليا باش وديك الساعات غادي نولي نرجعوهم), code:block2 (1. Load tracker from chat_archives/_tracking/appended_timest), code:json ({), code:bash (python build_customer_context.py), code:block5 (Step 1: python data_extraction.py          → hourly JSONL), Crash Safety, Customer Context — Plan (+10 more)
+
+### Community 108 - "Community 108"
+Cohesion: 0.12
+Nodes (17): Algorithm: classify_customer.py, code:block1 (1. Load appended_timestamps.json from chat_archives/_trackin), code:yaml (system_prompt: |), code:python (device = 0 if torch.cuda.is_available() else -1), code:bash (python classify_customer.py), code:block5 (Step 1: python data_extraction.py          → hourly JSONL), Customer Lead Classification — Plan, Dependencies (+9 more)
+
+### Community 109 - "Community 109"
+Cohesion: 0.12
+Nodes (17): `build_customer_context.py`, `classify_customer.py`, Cleanup (manual, one-time), code:python (OUTPUT_FILE = os.path.join(BASE_DIR, "customer_context.txt")), code:python (def sanitize_ts(ts):), code:python (def main():), code:python (CONTEXT_FILE = os.path.join(BASE_DIR, "customer_context.txt"), code:python (def load_context(context_file):) (+9 more)
+
+### Community 110 - "Community 110"
+Cohesion: 0.12
+Nodes (16): Change 1: Skip when already up-to-date, Change 2: Save result to root folder, code:python (def already_classified(latest_ts):), code:python (if already_classified(latest_ts):), code:python (def save_result(latest_ts, tier, reason, context_line_count)), code:block4 (existing lines | new | notes), Edge cases, Files changed (+8 more)
+
+### Community 111 - "Community 111"
+Cohesion: 0.13
+Nodes (14): Architecture Overview, Core Features, Hard Constraints, How It Works, Out of Scope, Pitch, Privacy First, Problem (+6 more)
+
+### Community 112 - "Community 112"
+Cohesion: 0.15
+Nodes (13): code:python (def count_pending(base_dir):), code:block2 (main():), Design, Edge cases analyzed, Modified `main()` flow, New function: `count_pending()`, Plan: Pre-scan to Avoid Loading Whisper Model When Nothing to Transcribe, Problem (+5 more)
+
+### Community 113 - "Community 113"
+Cohesion: 0.15
+Nodes (12): command, type, command, type, mcp, cocoindex-code, graphify, permission (+4 more)
+
+### Community 115 - "Community 115"
+Cohesion: 0.57
+Nodes (7): main(), phase2_basename_match(), phase2_prefix_match(), phase2_suffix_match(), phase3_true_duplicates(), pick_file_level_node(), resolve_real_path()
+
+### Community 116 - "Community 116"
+Cohesion: 0.27
+Nodes (10): main(), process_jsonl(), find_next_seq(), get_type_prefix(), main(), parse_data_uri(), process_jsonl(), find_next_seq() (+2 more)
+
+### Community 118 - "Community 118"
+Cohesion: 0.83
+Nodes (3): filter_graph(), main(), make_stub()
 
 ## Knowledge Gaps
-- **769 isolated node(s):** `@opencode-ai/plugin`, `appended_timestamps`, `extracted_timestamps`, `Agentic Workflow Skills`, `Skill Loading Priority` (+764 more)
+- **826 isolated node(s):** `$schema`, `plugin`, `*`, `type`, `command` (+821 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **34 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **36 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Universal Project Best Practices` connect `Community 67` to `Community 66`, `Community 2`, `Community 37`, `Community 7`, `Community 43`, `Community 46`, `Community 52`?**
-  _High betweenness centrality (0.017) - this node is a cross-community bridge._
-- **Why does `7. Session Lessons Learned` connect `Community 46` to `Community 67`, `Community 71`, `Community 72`, `Community 73`, `Community 74`, `Community 75`, `Community 76`, `Community 77`, `Community 78`, `Community 79`, `Community 80`, `Community 81`, `Community 82`, `Community 83`, `Community 84`, `Community 85`, `Community 86`, `Community 87`, `Community 88`, `Community 89`, `Community 90`, `Community 91`, `Community 92`, `Community 93`, `Community 94`, `Community 95`, `Community 96`, `Community 97`, `Community 98`, `Community 99`, `Community 100`, `Community 101`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
-- **Why does `8. Automation & Process Design` connect `Community 2` to `Community 67`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
-- **What connects `Count PTT entries needing transcription, without loading the model.`, `@opencode-ai/plugin`, `appended_timestamps` to the rest of the system?**
-  _776 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `Universal Project Best Practices` connect `Community 66` to `Community 2`, `Community 37`, `Community 7`, `Community 43`, `Community 46`, `Community 52`?**
+  _High betweenness centrality (0.016) - this node is a cross-community bridge._
+- **Why does `7. Session Lessons Learned` connect `Community 46` to `Community 66`, `Community 71`, `Community 72`, `Community 73`, `Community 74`, `Community 75`, `Community 76`, `Community 77`, `Community 78`, `Community 79`, `Community 80`, `Community 81`, `Community 82`, `Community 83`, `Community 84`, `Community 85`, `Community 86`, `Community 87`, `Community 88`, `Community 89`, `Community 90`, `Community 91`, `Community 92`, `Community 93`, `Community 94`, `Community 95`, `Community 96`, `Community 97`, `Community 98`, `Community 99`, `Community 100`, `Community 101`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Why does `8. Automation & Process Design` connect `Community 2` to `Community 66`?**
+  _High betweenness centrality (0.009) - this node is a cross-community bridge._
+- **What connects `$schema`, `plugin`, `*` to the rest of the system?**
+  _833 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.05128205128205128 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
