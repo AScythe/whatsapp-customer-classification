@@ -1,3 +1,5 @@
+# Description: Classifies customer lead tier (HOT/EXISTING/COLD) using a local Qwen3.5 LLM.
+
 import json
 import logging
 import os

@@ -1,3 +1,5 @@
+# Description: Extracts WhatsApp JSON export into hourly JSONL files, with deduplication via timestamp tracking.
+
 import json
 import logging
 import os

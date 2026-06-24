@@ -1,11 +1,12 @@
+# Description: Decodes base64-encoded documents (PDF, DOC, DOCX, XLS, XLSX) from WhatsApp JSONL to local files.
+
 import json
 import logging
 import os
 import sys
 import base64
-import re
+from media_utils import find_next_seq, parse_data_uri, get_type_prefix
 import shutil
-import tempfile
 import glob
 
 logging.basicConfig(
@@ -13,7 +14,7 @@ logging.basicConfig(
     format="%(asctime)s  %(levelname)-8s  %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
-logger = logging.getLogger("extract_media")
+logger = logging.getLogger("decode_doc")
 
 folders = sorted(glob.glob("*_chat_archives"))
 if not folders:
@@ -38,41 +39,12 @@ else:
             print("Invalid choice.")
 
 MIME_EXT_MAP = {
-    "audio/ogg": ".ogg",
+    "application/pdf": ".pdf",
+    "application/msword": ".doc",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ".docx",
+    "application/vnd.ms-excel": ".xls",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": ".xlsx",
 }
-
-
-def find_next_seq(media_dir, hour_key, type_prefix):
-    max_seq = 0
-    if os.path.exists(media_dir):
-        pattern = rf"^{type_prefix}_{hour_key}_(\d+)\."
-        for fname in os.listdir(media_dir):
-            match = re.match(pattern, fname)
-            if match:
-                seq_num = int(match.group(1))
-                if seq_num > max_seq:
-                    max_seq = seq_num
-    return max_seq + 1
-
-
-def parse_data_uri(uri):
-    if not uri.startswith("data:"):
-        return None, None
-    try:
-        header, payload = uri.split("base64,", 1)
-        mime_type = header.removeprefix("data:").removesuffix(";").split(";")[0]
-        return mime_type, payload
-    except ValueError:
-        return None, None
-
-
-def get_type_prefix(message_type):
-    prefix_map = {
-        "ptt": "ptt",
-        "image": "img",
-        "document": "doc",
-    }
-    return prefix_map.get(message_type, "media")
 
 
 def process_jsonl(jsonl_path):
@@ -83,7 +55,7 @@ def process_jsonl(jsonl_path):
     with open(jsonl_path, "r", encoding="utf-8") as f:
         lines = f.readlines()
 
-    seq = find_next_seq(media_dir, base_name, "ptt")
+    seq = find_next_seq(media_dir, base_name, "doc")
     updated_lines = []
     extracted_count = 0
 
@@ -93,6 +65,11 @@ def process_jsonl(jsonl_path):
             continue
 
         obj = json.loads(line)
+
+        if obj.get("type") != "document":
+            updated_lines.append(json.dumps(obj, ensure_ascii=False))
+            continue
+
         media_link = obj.get("media_link")
 
         if media_link and media_link.startswith("data:"):
@@ -112,9 +89,9 @@ def process_jsonl(jsonl_path):
                     assert payload is not None
                     os.makedirs(media_dir, exist_ok=True)
                     try:
-                        audio_data = base64.b64decode(payload)
-                        with open(media_path, "wb") as af:
-                            af.write(audio_data)
+                        data = base64.b64decode(payload)
+                        with open(media_path, "wb") as f:
+                            f.write(data)
                         logger.info("Decoded -> %s", media_filename)
                     except Exception as e:
                         logger.error("Error decoding %s: %s", media_filename, e)
@@ -142,7 +119,7 @@ def process_jsonl(jsonl_path):
 
 
 def main():
-    logger.info("Scanning for JSONL files with embedded media...")
+    logger.info("Scanning for JSONL files with embedded documents...")
     found = 0
     for root, dirs, files in os.walk(BASE_DIR):
         if "_tracking" in root:

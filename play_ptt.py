@@ -1,3 +1,5 @@
+# Description: Interactive CLI player for decoded WhatsApp voice messages via ffplay.
+
 import os
 import json
 import re
@@ -223,7 +225,7 @@ def main():
     check_ffplay()
     day_ogg_map = find_ogg_files()
     if not day_ogg_map:
-        logger.error("No voice messages found. Run 'python extract_media_ptt.py' first.")
+        logger.error("No voice messages found. Run 'python decode_media_ptt.py' first.")
         sys.exit(1)
     show_day_menu(day_ogg_map)
 

@@ -1,3 +1,5 @@
+# Description: Merges message bodies and transcripts from JSONL into a single LLM-ready context file.
+
 import json
 import logging
 import os

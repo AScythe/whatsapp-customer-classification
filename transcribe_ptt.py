@@ -1,3 +1,5 @@
+# Description: Transcribes Darija voice messages (.ogg) using ychafiqui/whisper-medium-darija.
+
 import json
 import logging
 import os
