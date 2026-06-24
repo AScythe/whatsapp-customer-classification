@@ -8,8 +8,8 @@
 whatsapp_customer_classification/
 ├── data_extraction.py            # Step 1 — raw JSON → hourly JSONL
 ├── extract_media_ptt.py          # Step 2 — decode base64 media to files
-├── play_ptt.py                   # Step 3 (optional) — CLI voice message player
-├── transcribe_ptt.py             # Step 4 — Darija Whisper transcription
+├── transcribe_ptt.py             # Step 3 — Darija Whisper transcription
+├── play_ptt.py                   # Step 4 (optional) — CLI voice message player
 ├── build_customer_context.py     # Step 5 — JSONL → plain-text context file
 ├── classify_customer.py          # Step 6 — Qwen3.5 lead classification
 ├── prompts/
@@ -74,6 +74,24 @@ Walks all JSONL files in the selected customer folder, finds entries with `data:
 - `process_jsonl(jsonl_path)` — processes a single JSONL file: decodes all embedded media, updates the file in-place
 - `main()` — walks customer directory tree, processes every JSONL file with embedded media
 
+### transcribe_ptt.py
+
+Lead line: (none — file-level description header missing)
+
+Scans the customer folder for untranscribed voice messages, loads the `ychafiqui/whisper-medium-darija` model, and adds a `transcript` field to each PTT entry in the JSONL files.
+
+- Skips entries where `transcript` already exists (idempotent)
+- Skips entries whose `media_link` is still a data URI (not yet decoded — must run Step 2 first)
+- Counts pending entries before loading the model (saves time if nothing to do)
+- Uses GPU if available, falls back to CPU
+
+#### Functions
+- `get_device()` — returns CUDA device index (0) or CPU (-1) based on availability
+- `count_pending(base_dir)` — scans JSONL files to count PTT entries needing transcription without loading the model
+- `load_pipeline(device)` — loads the Whisper-darija pipeline from Hugging Face; downloads model on first run
+- `process_jsonl(jsonl_path, pipe)` — transcribes all pending PTT entries in a single JSONL file
+- `main()` — orchestrates: count pending, load model, walk files, transcribe
+
 ### play_ptt.py
 
 Lead line: (none — file-level description header missing)
@@ -96,24 +114,6 @@ Interactive CLI voice message browser. Scans the customer folder for `.ogg` file
 - `show_day_menu(day_ogg_map)` — displays day selection menu and dispatches to message menu
 - `show_message_menu(day_name, ogg_list)` — displays message list for a day and plays selected audio
 - `main()` — entry point: verifies ffplay, finds ogg files, launches day menu
-
-### transcribe_ptt.py
-
-Lead line: (none — file-level description header missing)
-
-Scans the customer folder for untranscribed voice messages, loads the `ychafiqui/whisper-medium-darija` model, and adds a `transcript` field to each PTT entry in the JSONL files.
-
-- Skips entries where `transcript` already exists (idempotent)
-- Skips entries whose `media_link` is still a data URI (not yet decoded — must run Step 2 first)
-- Counts pending entries before loading the model (saves time if nothing to do)
-- Uses GPU if available, falls back to CPU
-
-#### Functions
-- `get_device()` — returns CUDA device index (0) or CPU (-1) based on availability
-- `count_pending(base_dir)` — scans JSONL files to count PTT entries needing transcription without loading the model
-- `load_pipeline(device)` — loads the Whisper-darija pipeline from Hugging Face; downloads model on first run
-- `process_jsonl(jsonl_path, pipe)` — transcribes all pending PTT entries in a single JSONL file
-- `main()` — orchestrates: count pending, load model, walk files, transcribe
 
 ### build_customer_context.py
 
@@ -174,11 +174,11 @@ WhatsApp JSON Export (whatsapp_raw_messages/{phone}.json)
     │  Decodes data: URIs → writes media/ptt_*.ogg, media/img_*, etc.
     │  Updates media_link in JSONL from data: URI → local path
     ▼
-[Step 3] play_ptt.py (optional)
-    │  Reads .ogg files → plays via ffplay
-    ▼
-[Step 4] transcribe_ptt.py
+[Step 3] transcribe_ptt.py
     │  Loads Whisper-darija → transcribes .ogg → adds transcript field to JSONL
+    ▼
+[Step 4] play_ptt.py (optional)
+    │  Reads .ogg files → plays via ffplay
     ▼
 [Step 5] build_customer_context.py
     │  Reads all JSONL → merges body + transcript → writes customer_context.txt
@@ -209,8 +209,8 @@ All pipeline scripts are standalone — they do not import from each other. Each
 ```
 data_extraction.py      → json, logging, os, sys, datetime, collections, glob
 extract_media_ptt.py   → json, logging, os, sys, base64, re, shutil, tempfile, glob
-play_ptt.py             → os, json, re, subprocess, shutil, sys, logging, collections, glob
 transcribe_ptt.py       → json, logging, os, sys, torch, shutil, time, glob, transformers
+play_ptt.py             → os, json, re, subprocess, shutil, sys, logging, collections, glob
 build_customer_context.py → json, logging, os, sys, glob
 classify_customer.py    → json, logging, os, re, sys, time, glob, torch, yaml, transformers
 ```

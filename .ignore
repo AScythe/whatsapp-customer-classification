@@ -1,0 +1,4 @@
+archive/
+.cocoindex_code/
+graphify-out/cache/
+__pycache__/
