@@ -1,0 +1,78 @@
+we have new requirements
+we need to create new python code to collect all body and transcript from the jsonl into 1 file, we can call it "customer_context"... the process is to scan all jsonl stored in the chat archives folder, append the body and transcript one by one into the the single file... when a specific body and transcript of a given timestamp is already appended, we should log this timestamp so we wont append this body and transcript again, when we run the code again, it will only append new entries... you can propose most appropriate type of file for "customer_context", and you can save this file inside chat_archives together with the tracker file... understand this requirement and plan
+
+we have a new requirements:
+
+we need to create new python code that classifies customer context as either HOT_LEAD, COLD_LEAD, or EXISTING_CUSTOMER... the process is we will use qwen model as our llm, pass customer context as context for the llm to do the classification.
+we can create a prompt file in yaml:
+
+You are a lead triage assistant analyzing chat transcripts from a product campaign. Classify the user into exactly one of three tiers: HOT_LEAD, EXISTING_CUSTOMER, or COLD_LEAD based on these rules:
+
+1. HOT_LEAD: The user shows high intent or is evaluating specific details to buy right now.
+Look for:
+- Requests for payment links, pricing variants, or bank details.
+- Specific product availability questions (e.g., "Do you have size M in blue?").
+- Delivery/shipping logistics for their specific location.
+- Phrases indicating immediate interest (e.g., "Send me the invoice," "Can I order?").
+
+2. EXISTING_CUSTOMER: The user already bought a product and has a post-purchase inquiry.
+Look for:
+- Phrases indicating user already purchased a product.
+- Tracking numbers or delivery status updates for a past order.
+- Complaints about a defective item or payment issues from a previous purchase.
+- Repeat purchase requests for accessories or refills.
+
+2. COLD_LEAD: The user shows low intent, is browsing casually, or wants general information.
+Look for:
+- Anything that doesn’t fit the criteria on HOT_LEAD or EXISTING_CUSTOMER
+- Very broad product questions ("What is this?", "How does it work?").
+- Requests for reviews or general proof without asking how to buy.
+- Unsubscribe or rejection phrases ("Stop", "Not interested", "No thanks").
+
+Analyze the following chat transcript below to classify the user into its appropriate tier:
+{customer_context}
+
+Return ONLY the JSON object as Final Answer: {"tier": "TIER_NAME", "reason": "1-sentence justification"}.
+
+i will be using https://huggingface.co/Qwen/Qwen3.5-4B as the llm
+
+can you analyze this requirements and make a detailed plan?
+
+
+for the classify_customer.py, the classification is based on the accumulated context until the latest timestamp, can you tell me where did you based the latest timestamp, is it on appended timestamp or somewhere else?
+
+we need to improve the filenaming system for customer_context.txt... it should be name {ts}_customer_context.txt, such that the {ts} is the latest timestamp in appended_timestamps.json...
+
+and then, i like to use the latest timestamp in appended_timestamps.json as a way on whether the build_customer_context.py needs to run the process of building the context or skip the process... what i mean is, if the timestamp in {ts}_{TIER}.txt correspond to the latest timestamp in the appended_timestamps.json, then it should skip the building process, it will only proceed with the building/rebuilding if the latest timestamp in appended_timestamps.json, is different/newer than the timestamp in {ts}_customer_context.txt... do you understand this requirement and its purpose?
+
+Go ahead. The pipeline order:
+1. python data_extraction.py — select source file → produces hourly JSONL files
+2. python extract_media_ptt.py — decodes base64 media to .ogg files
+3. python transcribe_ptt.py — transcribes Darija voice messages
+4. python build_customer_context.py — builds {ts}_customer_context.txt
+5. python classify_customer.py — runs Qwen3.5 tier classification
+
+this is pitch
+WhatsApp customer lead classification engine: automatically triages inbound leads into sales-ready tiers. 
+this is the repository description
+
+Turn raw WhatsApp chats into actionable sales intelligence — extract, transcribe, and classify every lead without manual review, all on your own machine.
+
+this is readme description
+AI-powered lead scoring from WhatsApp conversations — extract chats, decode media, transcribe Darija voice notes, build LLM context, and classify leads into HOT / EXISTING / COLD tiers without manual review.
+
+based on all of this info and the project code base, can you revise readme description to capture all of the information here?
+
+also revise pitch to capture the key information here and make it concise, catchy, convincing, high-impact hook, and identifies the most critical problem it is solving
+
+Turn raw WhatsApp chats into actionable sales intelligence — extract, transcribe, and classify every lead without manual review, all on your own machine.
+Thousands of WhatsApp messages, one hot lead? find it without reading every chat. Automatically extract, transcribe, and classify every lead into sales-ready tiers. All on your machine, zero manual review.
+
+
+we are trying to create a similar ui app for whatsapp, and to get messages we do api calls to get the message data for every customer and get json file with the message data, then display the messages similar on how whatsapp display in their ui... our concern is how we can efficiently store the message data... can you give me the detailed database architecture of whatsapp, on how they store their message data? do you understand my question?
+
+the example message data is the one provided in whatsapp_messages.json (we get it from https://api.whatsapp.bulksms.ma/api/instances/to7ojh47u7i3nqnyzd03xdwkykm/live-chats/256903619858615@lid/messages)
+
+i like to give more clarity on what we needed... so we get many of this json messages from many users, and we want to display the messages like how whatsapp display them... but before that, we want to store this message data... it will be a lot of this message data, and we are thinking if we can store it similar on how whatsapp or other messaging apps store their message data
+
+you can analyze the 4 database_plan*.md documents, and come up with the most effective and suitable database architecture and plan... put it in new database_plan_final.md, which culminates all the ideas and strategies
